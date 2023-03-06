@@ -51,6 +51,7 @@ class RouteServiceProvider extends ServiceProvider
         // До 2 уроку
         Route::pattern("id",'[0-9]+');
         Route::pattern("name_2",'[a-z][a-z]');
+        Route::pattern("date",'\d{4}-\d{1,2}-\d{1,2}');
     }
 
     /**

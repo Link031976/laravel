@@ -76,8 +76,15 @@ Route::get('/user10/{id}/{name_2}', function ($id,$name_2) {
     return '10. Користувач '.$id.' '.$name_2;
 });
 
-/*11. Зробіть маршрут виду /posts/:date, де замість :date має бути дата у форматі рік-місяць-день.
-12. Зробіть маршрут виду /:year/:month/:day, де замість :year має бути рік, замість :month - місяць, замість :day - день.
+//11. Зробіть маршрут виду /posts/:date, де замість :date має бути дата у форматі рік-місяць-день.
+Route::get('/posts11/{date}', function ($date) {
+    return '11. Пост '.$date;
+});
+//12. Зробіть маршрут виду /:year/:month/:day, де замість :year має бути рік, замість :month - місяць, замість :day - день.
+Route::get('/{year}/{month}/{day}', function ($year,$month,$day) {
+    return '12. /:year/:month/:day '.$year.'-'.$month.'-'.$day;
+});
+/*
 13. Згрупуйте такі маршрути:
 Route::get('/admin/users', function ($id) {
 		return 'all';
