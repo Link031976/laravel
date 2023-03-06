@@ -84,15 +84,17 @@ Route::get('/posts11/{date}', function ($date) {
 Route::get('/{year}/{month}/{day}', function ($year,$month,$day) {
     return '12. /:year/:month/:day '.$year.'-'.$month.'-'.$day;
 });
-/*
-13. Згрупуйте такі маршрути:
-Route::get('/admin/users', function ($id) {
-		return 'all';
-	});
-	Route::get('/admin/user/{id}', function ($id) {
-		return $id;
-	});
-14. Дайте імена всім попереднім маршрутам.
-15. Командою php artisan route:list у консолі перевірте список ваших роутів. Скористайтеся додатковими командами --colwnns та –name.
 
-*/
+// 13. Згрупуйте такі маршрути:
+
+Route::prefix('admin')->group(function () {
+    Route::get('/users', function () {
+        return "13 admin/users";// Соответствует URL-адресу `/admin/users` ...
+    });
+    Route::get('/users/{id}', function ($id) {
+        return "13 admin/users ".$id;// Соответствует URL-адресу `/admin/users` ...
+    });
+});
+
+// 14. Дайте імена всім попереднім маршрутам.
+// 15. Командою php artisan route:list у консолі перевірте список ваших роутів. Скористайтеся додатковими командами --colwnns та –name.
