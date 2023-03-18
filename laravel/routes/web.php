@@ -1,6 +1,9 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Route;
+//use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,52 +42,37 @@ Route::get('/dir/{str}', function ($getTest) {
 
 
 Route::prefix('post')->group(function () {
-    Route::get('', function () {
-        return ' список постів';
-    });
+   
+    Route::get('/{id}', [PostController::class, 'show']);
 
-    // 1. У файлі routes/web.php створіть такі маршрути
-    Route::get('/1', function () {
-        return ' перший пост';
-    });
+    Route::get('/{catId}/{postId}',[PostController::class, 'catPost'] );    
 
-    //4. Відредагуйте роут для виведення конретного поста наступним чином:
-    Route::get('/{id}', function ($id) {
-        return 'пост ' . $id;
-    });
-
-    //6. Створіть маршрут наступного виду:
-    Route::get('/{catId}/{postId}', function ($catId, $postId) {
-            return $catId . ' ' . $postId;
-    });
-
-    //11. Зробіть маршрут виду /posts/:date, де замість :date має бути дата у форматі рік-місяць-день.
-    Route::get('/{date}', function ($date) {
-        return '11. Пост '.$date;
-    });
 })->name(name:'post'); //Route::prefix('post')->group(function ()
 
-Route::prefix('user')->group(function () {
-    //5. Зробіть маршрут, що обробляє адреси виду /user/:name, де замість :name може бути будь-який рядок.
-    Route::get('/{name}',function ($name){
-        return '5. Користувач '.$name;
-    });
+Route::prefix('posts')->group(function () {
+    Route::get('',[PostController::class, 'showAll']);
 
-    //7. Зробіть маршрут, який обробляє адреси типу /user/:surname/:name/, де параметри задають ім'я та прізвище користувача.
-    Route::get('/{surname}/{name}',function ($surname,$name){
-        return '7 Користувач '.$name. ' ' . $surname;
-    });
-    
-    //9. Зробіть маршрут виду /user/:id, де замість :id має бути тільки число. Спробуйте звернутися через браузер цього маршруту, передавши параметром не число. Зверніть увагу на результат.
-    Route::get('/{id}',function ($id){
-        return '9. Користувач '.$id;
-    });
+    Route::get('/{date}', [PostController::class, 'inDate']);
 
-    //10. Зробіть маршрут виду /user/:id/:name, де замість :id має бути число, а замість :name - рядок, що складається з маленьких латинських літер кількістю більше 2-х. 
-    Route::get('/{id}/{name_2}', function ($id,$name_2){
-        return '10. Користувач '.$id.' '.$name_2;
-    });
-})->name(name:'user');
+})->name(name:'post'); //Route::prefix('post')->group(function ()
+
+Route::prefix('user')->name(name:'user.')->group(function () {
+    Route::get('/all', [UserController::class, 'showAll'])
+    ->name('all');
+
+    Route::get('/{name}', [UserController::class,'show'])
+    ->whereAlpha('name')->name('name');
+
+    Route::get('/{surname}/{name}', [UserController::class, 'show'])
+    ->whereAlpha(['name','surname'])->name('surnameName');
+
+    Route::get('/{id}', [UserController::class,'show'])
+    ->whereNumber('id')->name('id');
+
+    Route::get('/{id}/{name}', [UserController::class, 'show'])
+    ->whereNumber('id')->where('name', '[a-z]{2,}')->name('idName');
+});//Route::prefix('user')->name(name:'user.')->group(function ()
+
 
 //8. Зробіть так, щоб за адресою /city/:city виводили вказане місто. При цьому місто було необов'язковим параметром і за умовчанням мало значення Kyiv.
 Route::get('/city/{city}', function ($city) {
@@ -98,12 +86,8 @@ Route::get('/{year}/{month}/{day}', function ($year,$month,$day) {
 // 13. Згрупуйте такі маршрути:
 
 Route::prefix('admin')->group(function () {
-    Route::get('/users', function () {
-        return "13 admin/users";// Соответствует URL-адресу `/admin/users` ...
-    });
-    Route::get('/users/{id}', function ($id) {
-        return "13 admin/users ".$id;// Соответствует URL-адресу `/admin/users` ...
-    });
+    Route::get('/users', [AdminController::class, 'showAll']);
+    Route::get('/users/{id}', [AdminController::class, 'show']);
 })->name(name:'admin');
 
 // 14. Дайте імена всім попереднім маршрутам.
