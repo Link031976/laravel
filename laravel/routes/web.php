@@ -30,32 +30,36 @@ Route::get('/posts', function () {
 });
 
 //3 Зробіть так, щоб при зверненні на адреси /test та 
-// /dir/test у браузері виводилися якісь повідомлення
+
 Route::get('/test', function () {
     return 'тест пройдено';
 })->name(name:'test');
 
+// /dir/test у браузері виводилися якісь повідомлення
 Route::get('/dir/{str}', function ($getTest) {
     return 'dir - '.$getTest;
 })->name(name:'dir');
 
 
-
-Route::prefix('post')->group(function () {
+//группа post
+Route::prefix('post')->name(name:'post')->group(function () {
    
     Route::get('/{id}', [PostController::class, 'show']);
 
     Route::get('/{catId}/{postId}',[PostController::class, 'catPost'] );    
 
-})->name(name:'post'); //Route::prefix('post')->group(function ()
+}); //Route::prefix('post')->group(function ()
 
-Route::prefix('posts')->group(function () {
+//группа posts
+Route::prefix('posts')->name(name:'posts')->group(function () {
     Route::get('',[PostController::class, 'showAll']);
 
     Route::get('/{date}', [PostController::class, 'inDate']);
 
-})->name(name:'post'); //Route::prefix('post')->group(function ()
+}); //Route::prefix('post')->group(function ()
 
+
+//группа user
 Route::prefix('user')->name(name:'user.')->group(function () {
     Route::get('/all', [UserController::class, 'showAll'])
     ->name('all');
@@ -83,14 +87,11 @@ Route::get('/city/{city}', function ($city) {
 Route::get('/{year}/{month}/{day}', function ($year,$month,$day) {
     return "Дата $year - $month - $day";
 });
-// 13. Згрупуйте такі маршрути:
 
-Route::prefix('admin')->group(function () {
+
+// 13. Згрупуйте такі маршрути:
+Route::prefix('admin')->name(name:'admin')->group(function () {
     Route::get('/users', [AdminController::class, 'showAll']);
     Route::get('/users/{id}', [AdminController::class, 'show']);
-})->name(name:'admin');
+});
 
-// 14. Дайте імена всім попереднім маршрутам.
-
-// 15. Командою php artisan route:list у консолі перевірте список ваших роутів. Скористайтеся додатковими командами --colwnns та –name.
-// у файлі route.list.log
