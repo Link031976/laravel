@@ -46,6 +46,16 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+            // До 2 уроку           
+            Route::patterns([
+                'date' => '[1-2]{1}[0-9]{3}-([0]?[1-9]|[1][0-2])-([0]?[1-9]|[1-2][0-9]|[3][0-1])',
+                'year' => '[1-2]{1}[0-9]{3}',
+                'month' => '[0]?[1-9]|[1][0-2]',
+                'day' => '[0]?[1-9]|[1-2][0-9]|[3][0-1]',
+                'id' => '[0-9]+'
+            ]);
+            
         });
     }
 
