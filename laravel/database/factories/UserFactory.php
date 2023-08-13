@@ -18,9 +18,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'age' => random_int(10,80),
-            'salary' => random_int(500,2000),
+            'name' => $this->faker->name(), // згенерувати ім'я
+            'age' => random_int(10,80), // згенерувати вік від 10 до 80
+            'salary' => random_int(500,2000), //згенерувати з/п від 500 до 2000
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

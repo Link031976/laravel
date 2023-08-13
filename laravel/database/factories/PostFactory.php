@@ -17,9 +17,9 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence(5),
-            'slug' => random_int(1,2000),
-            'likes' => random_int(1,2000),
+            'title' => $this->faker->sentence(5), // повернути заголовок з 5-ти слів
+            'slug' => random_int(1,2000), //згенерувати ціле від 1 до 2000
+            'likes' => random_int(1,2000), // згенерувати ціле від 1 до 2000
         ];
     }
 }

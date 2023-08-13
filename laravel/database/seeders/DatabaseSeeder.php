@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Post::factory(1)->create();
-        User::factory(10)->create();
+        Post::factory(1)->create(); //твоти 1 запис до постів
+        User::factory(10)->create(); // сворити 10 користувачів
 
 
         // \App\Models\User::factory(10)->create();
