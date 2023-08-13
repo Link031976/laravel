@@ -29,7 +29,7 @@ Route::get('/posts', function () {
     return ' список постів';
 });
 
-//3 Зробіть так, щоб при зверненні на адреси /test та 
+//3 Зробіть так, щоб при зверненні на адреси /test та
 
 Route::get('/test', function () {
     return 'тест пройдено';
@@ -43,10 +43,10 @@ Route::get('/dir/{str}', function ($getTest) {
 
 //группа post
 Route::prefix('post')->name(name:'post')->group(function () {
-   
+
     Route::get('/{id}', [PostController::class, 'show']);
 
-    Route::get('/{catId}/{postId}',[PostController::class, 'catPost'] );    
+    Route::get('/{catId}/{postId}',[PostController::class, 'catPost'] );
 
 }); //Route::prefix('post')->group(function ()
 
@@ -61,20 +61,15 @@ Route::prefix('posts')->name(name:'posts')->group(function () {
 
 //группа user
 Route::prefix('user')->name(name:'user.')->group(function () {
-    Route::get('/all', [UserController::class, 'showAll'])
-    ->name('all');
+    Route::get('/all', [UserController::class, 'showAll'])->name('all');
 
-    Route::get('/{name}', [UserController::class,'show'])
-    ->whereAlpha('name')->name('name');
+    Route::get('/{name}', [UserController::class,'show'])->whereAlpha('name')->name('name');
 
-    Route::get('/{surname}/{name}', [UserController::class, 'show'])
-    ->whereAlpha(['name','surname'])->name('surnameName');
+    Route::get('/{surname}/{name}', [UserController::class, 'show'])->whereAlpha(['name','surname'])->name('surnameName');
 
-    Route::get('/{id}', [UserController::class,'show'])
-    ->whereNumber('id')->name('id');
+    Route::get('/{id}', [UserController::class,'show'])->whereNumber('id')->name('id');
 
-    Route::get('/{id}/{name}', [UserController::class, 'show'])
-    ->whereNumber('id')->where('name', '[a-z]{2,}')->name('idName');
+    Route::get('/{id}/{name}', [UserController::class, 'show'])->whereNumber('id')->where('name', '[a-z]{2,}')->name('idName');
 });//Route::prefix('user')->name(name:'user.')->group(function ()
 
 
